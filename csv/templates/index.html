@@ -2,33 +2,80 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Uploads</title>
+    <title>{{ TITLE }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+    <style>
+        td {
+            padding: 5px;
+            border: 1px solid #ccc;
+        }
+    </style>
 </head>
 <body>
+
 <h1>Обновление прайсов в 1 клик</h1>
-<div class="row">
-    <input type="checkbox" checked>
-    <form action="/" method="POST" enctype="multipart/form-data">
-        <div class="col-md-4">
-            <input type="file" name="file" id="exampleInputFile">
-            <!--{% if allowed_file %}-->
-            <!--<h2> Файл загружен</h2>-->
-            <!--{% else %}-->
-            <!--<h2> Файл не загружен </h2>-->
-            <!--{% endif %}-->
-            <!--<input type="file" name="file_2" id="exampleInputFile">-->
-        </div>
-        <div class="col-md-4"><button  class="btn btn-primary">Загрузить</button></div>
-    </form>
-</div>
+
+<form action="/" method="POST" enctype="multipart/form-data">
+    <div class="col-md-4">
+        <input type="file" name="file" id="exampleInputFile">
+        <input type="file" name="file_2" id="exampleInputFile">
+    </div>
+    <div class="col-md-4">
+        <button class="btn btn-primary">Загрузить</button>
+    </div>
+</form>
+    {% if csv_row and csv_row2 %}
+        <table>
+            <tr>
+                <td><b>1 Файл</b></td>
+                {% for name_col in csv_row[0] %}
+                    <td>{{ name_col }}</td>
+                {% endfor %}
+            </tr>
+            <tr>
+                <td>1 Файл. Что сравниваем?</td>
+                {% for name_col in csv_row[0] %}
+                    <td><input type="radio" name="f1" value="4"></td>
+                {% endfor %}
+            </tr>
+            <tr>
+                <td>1 Файл. Что изменяем?</td>
+                {% for name_col in csv_row[0] %}
+                    <td><input type="radio" name="f2" value="3"></td>
+                {% endfor %}
+            </tr>
+            <tr>
+                <td><b>2 Файл</b></td>
+                {% for name_col in csv_row2[0] %}
+                    <td>{{ name_col }}</td>
+                {% endfor %}
+            </tr>
+            <tr>
+                <td>2 Файл. Что сравниваем?</td>
+                {% for name_col in csv_row2[0] %}
+                    <td><input type="radio" name="f3" value="1"></td>
+                {% endfor %}
+            </tr>
+            <tr>
+                <td>2 Файл. Что изменяем?</td>
+                {% for name_col in csv_row2[0] %}
+                    <td><input type="radio" name="f4" value="2"></td>
+                {% endfor %}
+            </tr>
+        </table>
+         <input name="run_compare" type="submit">
+    {% endif %}
 </body>
 </html>
